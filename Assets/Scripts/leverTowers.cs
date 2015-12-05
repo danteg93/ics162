@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class leverTowers : MonoBehaviour {
+    private AudioSource sound;
     //GUI Stuff
     private int w = 200;
     private int h = 80;
@@ -20,6 +21,7 @@ public class leverTowers : MonoBehaviour {
     public GameObject publicLever;
 	// Use this for initialization
 	void Start () {
+        sound = this.GetComponent<AudioSource>();
         squareThing = new Rect((Screen.width - w) / 2, (Screen.height - h) / 2, w, h);
         towers = GameObject.FindGameObjectsWithTag("Tower");
     }
@@ -43,6 +45,7 @@ public class leverTowers : MonoBehaviour {
             if (currentY >= 60)
             {
                 animatingTowers = true;
+                sound.Play();
                 animating = false;
                 open = true;
             }
@@ -55,6 +58,7 @@ public class leverTowers : MonoBehaviour {
             if (currentY < 1.0f)
             {
                 animatingTowers = true;
+                sound.Play();
                 animating = false;
                 open = false;
             }
@@ -73,6 +77,7 @@ public class leverTowers : MonoBehaviour {
             {
                 animatingTowers = false;
                 towersDown = false;
+                sound.Stop();
             }
         }
         else if (animatingTowers)
@@ -88,6 +93,7 @@ public class leverTowers : MonoBehaviour {
             {
                 animatingTowers = false;
                 towersDown = true;
+                sound.Stop();
             }
         }
 
