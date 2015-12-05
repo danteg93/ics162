@@ -53,18 +53,18 @@ public class door : MonoBehaviour {
 	}
     void OnGUI()
     {
-        if (inRange && !open)
+        if (inRange && !open && !animating)
         {
             GUI.Box(squareThing, ("\nPress E to open door"));
         }
-        else if(inRange)
+        else if(inRange && !animating)
         {
             GUI.Box(squareThing, ("\nPress E to close door"));
         }
     }
     void OnTriggerEnter(Collider obj)
     {
-        Debug.Log("WTF");
+        //Debug.Log("WTF");
         inRange = true;
     }
     void OnTriggerExit(Collider obj)
