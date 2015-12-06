@@ -23,15 +23,12 @@ public class door : MonoBehaviour {
         {
             if (Input.GetKeyDown("e"))
             {
-                //publicDoor.transform.Rotate(0.0f, 90.0f, 0.0f);
-                Debug.Log(publicDoor.transform.rotation.eulerAngles);
                 animating = true;
             }
         }
         if (animating && !open) //opening door
         {
             currentY += 1.0f;
-            //Debug.Log(currentY);
             publicDoor.transform.Rotate(0.0f, 1.0f, 0.0f);
             if (currentY >= 90)
             {
@@ -42,7 +39,6 @@ public class door : MonoBehaviour {
         else if (animating)
         {
             currentY = currentY - 1.0f;
-            //Debug.Log(currentY);
             publicDoor.transform.Rotate(0.0f, -1.0f, 0.0f);
             if (currentY < 1.0f)
             {
@@ -64,7 +60,6 @@ public class door : MonoBehaviour {
     }
     void OnTriggerEnter(Collider obj)
     {
-        //Debug.Log("WTF");
         inRange = true;
     }
     void OnTriggerExit(Collider obj)

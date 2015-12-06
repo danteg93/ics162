@@ -25,7 +25,7 @@ public class leverTowers : MonoBehaviour {
         squareThing = new Rect((Screen.width - w) / 2, (Screen.height - h) / 2, w, h);
         towers = GameObject.FindGameObjectsWithTag("Tower");
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         if (inRange && !animatingTowers)
@@ -33,14 +33,12 @@ public class leverTowers : MonoBehaviour {
             if (Input.GetKeyDown("e"))
             {
                 //publicDoor.transform.Rotate(0.0f, 90.0f, 0.0f);
-                Debug.Log(publicLever.transform.rotation.eulerAngles);
                 animating = true;
             }
         }
         if (animating && !open) //opening door
         {
             currentY += 1.0f;
-            //Debug.Log(currentY);
             publicLever.transform.Rotate(1.0f, 0.0f, 0.0f);
             if (currentY >= 60)
             {
@@ -53,7 +51,6 @@ public class leverTowers : MonoBehaviour {
         else if (animating)
         {
             currentY = currentY - 1.0f;
-            //Debug.Log(currentY);
             publicLever.transform.Rotate(-1.0f, 0.0f, 0.0f);
             if (currentY < 1.0f)
             {
@@ -66,9 +63,7 @@ public class leverTowers : MonoBehaviour {
 
         if (animatingTowers && towersDown)
         {
-            Debug.Log("Towers going up");
             currentYTowers += speedConstant;
-            Debug.Log(currentYTowers);
             foreach (GameObject tower in towers)
             {
                 tower.transform.Translate(0.0f, speedConstant, 0.0f);
@@ -82,9 +77,7 @@ public class leverTowers : MonoBehaviour {
         }
         else if (animatingTowers)
         {
-            Debug.Log("Towers going down");
             currentYTowers += (-speedConstant);
-            Debug.Log(currentYTowers);
             foreach (GameObject tower in towers)
             {
                 tower.transform.Translate(0.0f, -speedConstant, 0.0f);
