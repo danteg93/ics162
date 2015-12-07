@@ -13,19 +13,46 @@ public class door : MonoBehaviour {
     private bool open = false;
     private float currentY = 0;
     public GameObject publicDoor;
+    public bool locked = false;
+    public bool superKey = false;
+
+    private playerData data;
 	// Use this for initialization
 	void Start () {
         squareThing = new Rect((Screen.width - w) / 2, (Screen.height - h) / 2, w, h);
+        data = (GameObject.FindGameObjectWithTag("playerData")).GetComponent<playerData>();
     }
 	// Update is called once per frame
 	void Update () {
-        if (inRange)
+        if (locked && inRange)
+        {
+            if (superKey && data.getSuperKey())
+            {
+                if (Input.GetKeyDown("e"))
+                {
+                    locked = false;
+                    animating = true;
+                }   
+            }
+            else if(!superKey && data.getBasicKey())
+            {
+                if (Input.GetKeyDown("e"))
+                {
+                    locked = false;
+                    animating = true;
+                }   
+            }
+        }
+        else if (inRange)
         {
             if (Input.GetKeyDown("e"))
             {
                 animating = true;
             }
         }
+        animateDoor();
+	}
+    private void animateDoor(){
         if (animating && !open) //opening door
         {
             currentY += 1.0f;
@@ -46,16 +73,35 @@ public class door : MonoBehaviour {
                 open = false;
             }
         }
-	}
+    }
     void OnGUI()
     {
-        if (inRange && !open && !animating)
+        if (inRange && !animating)
         {
-            GUI.Box(squareThing, ("\nPress E to open door"));
-        }
-        else if(inRange && !animating)
-        {
-            GUI.Box(squareThing, ("\nPress E to close door"));
+            if (locked && superKey && data.getSuperKey())
+            {
+                GUI.Box(squareThing, ("\nPress E to unlock super door"));
+            }
+            else if (locked && superKey && !data.getSuperKey())
+            {
+                GUI.Box(squareThing, ("\nYou need a Super Key to\nunlock this door"));
+            }
+            else if (locked && !superKey && data.getBasicKey())
+            {
+                GUI.Box(squareThing, ("\nPress E to unlock regular door"));
+            }
+            else if (locked && !superKey && !data.getBasicKey())
+            {
+                GUI.Box(squareThing, ("\nYou need a Regular Key to\nunlock this door"));
+            }
+            else if (!open)
+            {
+                GUI.Box(squareThing, ("\nPress E to open door"));
+            }
+            else
+            {
+                GUI.Box(squareThing, ("\nPress E to close door"));
+            }
         }
     }
     void OnTriggerEnter(Collider obj)
