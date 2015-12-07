@@ -15,7 +15,7 @@ public class leverTowers : MonoBehaviour {
     private bool open = false;
     private float currentY = 0;
     private float currentYTowers = -5.0f;
-    private float speedConstant = 0.01f;
+    private float speedConstant = 1.5f;
 
     private GameObject[] towers;
     public GameObject publicLever;
@@ -63,10 +63,10 @@ public class leverTowers : MonoBehaviour {
 
         if (animatingTowers && towersDown)
         {
-            currentYTowers += speedConstant;
+            currentYTowers += (Time.deltaTime *speedConstant);
             foreach (GameObject tower in towers)
             {
-                tower.transform.Translate(0.0f, speedConstant, 0.0f);
+                tower.transform.Translate(0.0f, (Time.deltaTime * speedConstant), 0.0f);
             }
             if (currentYTowers > 0)
             {
@@ -77,10 +77,10 @@ public class leverTowers : MonoBehaviour {
         }
         else if (animatingTowers)
         {
-            currentYTowers += (-speedConstant);
+            currentYTowers += (-Time.deltaTime * speedConstant);
             foreach (GameObject tower in towers)
             {
-                tower.transform.Translate(0.0f, -speedConstant, 0.0f);
+                tower.transform.Translate(0.0f, -Time.deltaTime * speedConstant, 0.0f);
             }
             if (currentYTowers < -5)
             {

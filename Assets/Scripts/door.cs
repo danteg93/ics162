@@ -16,6 +16,7 @@ public class door : MonoBehaviour {
     public bool locked = false;
     public bool superKey = false;
 
+    private float speedFactor = 100.0f;
     private playerData data;
 	// Use this for initialization
 	void Start () {
@@ -55,8 +56,8 @@ public class door : MonoBehaviour {
     private void animateDoor(){
         if (animating && !open) //opening door
         {
-            currentY += 1.0f;
-            publicDoor.transform.Rotate(0.0f, 1.0f, 0.0f);
+            currentY += (Time.deltaTime * speedFactor);
+            publicDoor.transform.Rotate(0.0f, (Time.deltaTime * speedFactor), 0.0f);
             if (currentY >= 90)
             {
                 animating = false;
@@ -65,8 +66,8 @@ public class door : MonoBehaviour {
         }
         else if (animating)
         {
-            currentY = currentY - 1.0f;
-            publicDoor.transform.Rotate(0.0f, -1.0f, 0.0f);
+            currentY += (-Time.deltaTime * speedFactor);
+            publicDoor.transform.Rotate(0.0f, (-Time.deltaTime * speedFactor), 0.0f);
             if (currentY < 1.0f)
             {
                 animating = false;
